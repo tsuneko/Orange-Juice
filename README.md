@@ -1,7 +1,7 @@
 # Orange-Juice
 Simple Currency Cheat for 100% Orange Juice [Steam]
 
-Static Offsets for 1.17.1:
+Static Offsets for 1.17.2:
 
 Stars = 0x2794C8
 Fruits = 0x279F80
