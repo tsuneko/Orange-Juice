@@ -108,10 +108,10 @@ namespace orangejuicemoney
             
             // Static offsets for 100% Orange Juice Steam 1.17.2 (16/2/17)
             Dictionary<string, int> offsets = new Dictionary<string, int>();
-            offsets["Stars"] = int.Parse("2794C8", HexNumber);
-            offsets["Fruits"] = int.Parse("279F80", HexNumber);
-            offsets["Halloween Candy"] = int.Parse("279DB0", HexNumber);
-            offsets["Christmas Candy"] = int.Parse("279DB4", HexNumber);
+            offsets["Stars"] = int.Parse("27B4C8", HexNumber);
+            offsets["Fruits"] = int.Parse("27BF80", HexNumber);
+            offsets["Halloween Candy"] = int.Parse("27BDB0", HexNumber);
+            offsets["Christmas Candy"] = int.Parse("27BDB4", HexNumber);
 
             Console.Clear();
 
