@@ -1,12 +1,12 @@
 # Orange-Juice
 Simple Currency Cheat for 100% Orange Juice [Steam]
 
-Static Offsets for 1.17.2:
+Static Offsets for 1.17.3:
 
-Stars = 0x27B4C8
-Fruits = 0x27BF80
-Halloween Candy = 0x27BDB0
-Christmas Candy = 0x27BDB4
+Stars = 0x27D4C8
+Fruits = Stars+0xAB8
+Halloween Candy = Stars+0x8E8
+Christmas Candy = Stars+0x8EC
 
 I do not wish to publicly distribute my cheat base .dll's, so here is a public c# source, written only for this game and using static offsets because I cannot be bothered implementing AOB scans for such a simple program.
 
