@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -82,7 +82,7 @@ namespace orangejuicemoney
         {
 
             string ProcessName = "100orange";
-            string ProcessVersion = "Steam 1.17.2";
+            string ProcessVersion = "Steam 1.17.3";
 
             Console.Title = "999% Orange Juice [" + ProcessVersion + "] ~ Tsuneko";
 
@@ -108,10 +108,11 @@ namespace orangejuicemoney
             
             // Static offsets for 100% Orange Juice Steam 1.17.2 (16/2/17)
             Dictionary<string, int> offsets = new Dictionary<string, int>();
-            offsets["Stars"] = int.Parse("27B4C8", HexNumber);
-            offsets["Fruits"] = int.Parse("27BF80", HexNumber);
-            offsets["Halloween Candy"] = int.Parse("27BDB0", HexNumber);
-            offsets["Christmas Candy"] = int.Parse("27BDB4", HexNumber);
+            int starOffset = int.Parse("27D4C8", HexNumber);
+            offsets["Stars"] = starOffset;
+            offsets["Fruits"] = starOffset + 2744;
+            offsets["Halloween Candy"] = starOffset + 2280;
+            offsets["Christmas Candy"] = starOffset + 2284;
 
             Console.Clear();
 
