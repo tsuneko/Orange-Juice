@@ -1,12 +1,12 @@
 # Orange-Juice
 Simple Currency Cheat for 100% Orange Juice [Steam]
 
-Static Offsets for 1.20:
+Static Offsets for 1.22.1:
 
-Stars = 0x322AE0
-Fruits = 0x323858
-Halloween Candy = 0x323658
-Christmas Candy = 0x32365C
+Stars = 0x3B4F70
+Fruits = 0x3B5D4C
+Halloween Candy = 0x3B5B4C
+Christmas Candy = 0x3B5B50
 
 Disclaimer:
 
