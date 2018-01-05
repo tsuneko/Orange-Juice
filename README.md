@@ -1,15 +1,12 @@
 # Orange-Juice
 Simple Currency Cheat for 100% Orange Juice [Steam]
 
-Static Offsets for 1.22.1:
+Static Offsets for 1.24.1:
 
-- Stars = 0x3B4F70
-- Fruits = 0x3B5D4C
-- Halloween Candy = 0x3B5B4C
-- Christmas Candy = 0x3B5B50
-
-Binary for 1.22.1:
-- https://github.com/tsuneko/Orange-Juice/releases/download/1.22.1/999.Orange.Juice.Steam.1.22.1.zip
+- Stars = 0x3C4A88
+- Fruits = 0x3C58D0
+- Halloween Candy = 0x3C56B8
+- Christmas Candy = 0x3C56BC
 
 To-do:
 - Implement AOB scans to find offsets automatically
