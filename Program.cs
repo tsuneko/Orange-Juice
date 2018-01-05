@@ -82,7 +82,7 @@ namespace orangejuicemoney
         {
 
             string ProcessName = "100orange";
-            string ProcessVersion = "Steam 1.22.1";
+            string ProcessVersion = "Steam 1.24.1";
 
             Console.Title = "999% Orange Juice [" + ProcessVersion + "] ~ Tsuneko";
 
@@ -105,13 +105,13 @@ namespace orangejuicemoney
 
             IntPtr ProcessHandle = (IntPtr)OpenProcess(0x0008 | 0x0010 | 0x0020, false, processes[0].Id);
             IntPtr ProcessBase = (IntPtr)processes[0].MainModule.BaseAddress.ToInt32();
-            
-            // Static offsets for 100% Orange Juice Steam 1.22.1 (19/12/17)
+
+            // Static offsets for 100% Orange Juice Steam 1.24.1 (06/01/18)
             Dictionary<string, int> offsets = new Dictionary<string, int>();
-            offsets["Stars"] = int.Parse("3B4F70", HexNumber);
-            offsets["Fruits"] = int.Parse("3B5D4C", HexNumber);
-            offsets["Halloween Candy"] = int.Parse("3B5B4C", HexNumber);
-            offsets["Christmas Candy"] = int.Parse("3B5B50", HexNumber);
+            offsets["Stars"] = int.Parse("3C4A88", HexNumber);
+            offsets["Fruits"] = int.Parse("3C58D0", HexNumber);
+            offsets["Halloween Candy"] = int.Parse("3C56B8", HexNumber);
+            offsets["Christmas Candy"] = int.Parse("3C56BC", HexNumber);
 
             Console.Clear();
 
