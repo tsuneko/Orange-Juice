@@ -76,13 +76,14 @@ namespace orangejuicemoney
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Fruits"]), 999);
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Halloween Candy"]), 999);
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Christmas Candy"]), 9999);
+            WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Valentines Event"]), 99999);
         }
 
         static void Main(string[] args)
         {
 
             string ProcessName = "100orange";
-            string ProcessVersion = "Steam 1.24.1";
+            string ProcessVersion = "Steam 1.26";
 
             Console.Title = "999% Orange Juice [" + ProcessVersion + "] ~ Tsuneko";
 
@@ -106,12 +107,13 @@ namespace orangejuicemoney
             IntPtr ProcessHandle = (IntPtr)OpenProcess(0x0008 | 0x0010 | 0x0020, false, processes[0].Id);
             IntPtr ProcessBase = (IntPtr)processes[0].MainModule.BaseAddress.ToInt32();
 
-            // Static offsets for 100% Orange Juice Steam 1.24.1 (06/01/18)
+            // Static offsets for 100% Orange Juice Steam 1.26 (03/03/18)
             Dictionary<string, int> offsets = new Dictionary<string, int>();
-            offsets["Stars"] = int.Parse("3C4A88", HexNumber);
-            offsets["Fruits"] = int.Parse("3C58D0", HexNumber);
-            offsets["Halloween Candy"] = int.Parse("3C56B8", HexNumber);
-            offsets["Christmas Candy"] = int.Parse("3C56BC", HexNumber);
+            offsets["Stars"] = int.Parse("46FB30", HexNumber);
+            offsets["Fruits"] = int.Parse("470A2C", HexNumber);
+            offsets["Halloween Candy"] = int.Parse("470814", HexNumber);
+            offsets["Christmas Candy"] = int.Parse("470818", HexNumber);
+            offsets["Valentines Event"] = int.Parse("282040", HexNumber);
 
             Console.Clear();
 
