@@ -1,6 +1,8 @@
 # Orange-Juice
 Simple Currency Cheat for 100% Orange Juice [Steam]
 
+[## Latest Release](https://github.com/tsuneko/Orange-Juice/files/1777061/999.Orange.Juice.Steam.1.26.zip)
+
 Static Offsets for 1.26:
 
 - Stars = 0x46FB30
