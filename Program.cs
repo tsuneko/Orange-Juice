@@ -15,6 +15,8 @@ namespace orangejuicemoney
 
         // C# Source written by /id/tsuneko
 
+        // Offsets Edited by timsmeets23
+
         // Use at own risk. I'm not responsible for anything.
 
         // This source does not have any error checking, it has just been written for copy and paste material by leechers.
@@ -34,13 +36,13 @@ namespace orangejuicemoney
             int bytesRead = 0;
 
             ReadProcessMemory(handle.ToInt32(), address.ToInt32(), buffer, 4, out bytesRead);
-            
+
             if (bytesRead == 4)
             {
                 return BitConverter.ToInt32(buffer, 0);
             }
 
-            return (int) -2147483648; // failed to read memory
+            return (int)-2147483648; // failed to read memory
         }
 
         static bool WriteInt(IntPtr handle, IntPtr address, int value)
@@ -64,7 +66,7 @@ namespace orangejuicemoney
 
             Console.WriteLine("Current Values:");
 
-            foreach(KeyValuePair<string, int> entry in offsets)
+            foreach (KeyValuePair<string, int> entry in offsets)
             {
                 Console.WriteLine("[" + ProcessName + ".exe+" + entry.Value.ToString("X") + "] " + entry.Key + ": " + ReadInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + entry.Value)));
             }
@@ -76,14 +78,14 @@ namespace orangejuicemoney
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Fruits"]), 999);
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Halloween Candy"]), 999);
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Christmas Candy"]), 9999);
-            WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Valentines Event"]), 99999);
+            //WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Valentines Event"]), 99999);
         }
 
         static void Main(string[] args)
         {
 
             string ProcessName = "100orange";
-            string ProcessVersion = "Steam 1.26";
+            string ProcessVersion = "Steam 1.26.2";
 
             Console.Title = "999% Orange Juice [" + ProcessVersion + "] ~ Tsuneko";
 
@@ -107,13 +109,13 @@ namespace orangejuicemoney
             IntPtr ProcessHandle = (IntPtr)OpenProcess(0x0008 | 0x0010 | 0x0020, false, processes[0].Id);
             IntPtr ProcessBase = (IntPtr)processes[0].MainModule.BaseAddress.ToInt32();
 
-            // Static offsets for 100% Orange Juice Steam 1.26 (03/03/18)
+            // Static offsets for 100% Orange Juice Steam 1.26.2 (06/04/18)
             Dictionary<string, int> offsets = new Dictionary<string, int>();
-            offsets["Stars"] = int.Parse("46FB30", HexNumber);
-            offsets["Fruits"] = int.Parse("470A2C", HexNumber);
-            offsets["Halloween Candy"] = int.Parse("470814", HexNumber);
-            offsets["Christmas Candy"] = int.Parse("470818", HexNumber);
-            offsets["Valentines Event"] = int.Parse("282040", HexNumber);
+            offsets["Stars"] = int.Parse("479FE8", HexNumber);
+            offsets["Fruits"] = int.Parse("47B110", HexNumber);
+            offsets["Halloween Candy"] = int.Parse("47AEEC", HexNumber);
+            offsets["Christmas Candy"] = int.Parse("47AEF0", HexNumber);
+            //offsets["Valentines Event"] = int.Parse("282040", HexNumber);
 
             Console.Clear();
 

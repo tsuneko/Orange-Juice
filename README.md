@@ -1,15 +1,14 @@
 # Orange-Juice
-Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store. Version 1.26 added a Valentines Event where you have to collect chocolates, this cheat will also set that value to the maximum.
+Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store.
 
-[Latest Release](https://github.com/tsuneko/Orange-Juice/files/1777061/999.Orange.Juice.Steam.1.26.zip)
+[Latest Release](https://github.com/timsmeets23/Orange-Juice/releases/download/1.26.2/999.Orange.Juice.Steam.1.26.2.zip)
 
-Static Offsets for 1.26:
+Static Offsets for 1.26.2:
 
-- Stars = 0x46FB30
-- Fruits = 0x470A2C
-- Halloween Candy = 0x470814
-- Christmas Candy = 0x470818
-- Valentines Event Chocolates = 0x282040
+- Stars = 0x479FE8
+- Fruits = 0x47B110
+- Halloween Candy = 0x47AEEC
+- Christmas Candy = 0x47AEF0
 
 To-do:
 - Implement AOB scans to find offsets automatically
