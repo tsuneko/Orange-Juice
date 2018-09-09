@@ -1,7 +1,7 @@
 # Orange-Juice
 Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store. Version 1.26 added a Valentines Event where you have to collect chocolates, this cheat will also set that value to the maximum.
 
-[Latest Release](https://github.com/tsuneko/Orange-Juice/files/1777061/999.Orange.Juice.Steam.1.26.zip)
+[Latest Release](https://github.com/tsuneko/Orange-Juice/releases/download/1.28.5/999.Orange.Juice.Steam.1.28.5.zip)
 
 Static Offsets for 1.28.5:
 
