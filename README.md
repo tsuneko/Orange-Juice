@@ -1,21 +1,18 @@
 # Orange-Juice 1.28.5
-Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store. Version 1.26 added a Valentines Event where you have to collect chocolates, this has been removed from 1.27.
+Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store. Version 1.26 added a Valentines Event where you have to collect chocolates, this has been removed from 1.27. Some version (I'm not sure since I didn't keep up to date) removed christmas candies.
 
-[Latest Release](https://github.com/tsuneko/Orange-Juice/releases/download/1.28.5/999.Orange.Juice.Steam.1.28.5.zip)
+With the steam inventory upgrade, more currencies are being moved to the steam inventory, which cannot be modified by this program, and thus you will not be able to buy all the cosmetics. I believe that fruitbat factory will eventually move all currencies (apart from stars) to the inventory, which makes this program not as useful for lazy players such as myself.
 
-Static Offsets for 1.28.5:
+##No more releases.
 
-- Stars = 0x61C8D0
-- Fruits = 0x61DA18
-- Halloween Candy = 0x61D7DC
-- Christmas Candy = 0x61D7E0
+Static Offsets for 2.2.1:
+- Stars = 0x469440
+- Fruits = 0x46A7EC
+- Halloween Candy = 0x46A540
 
 Outdated:
+- [1.28.5] Christmas Candy = 0x61D7E0
 - [1.26] Valentines Event Chocolates = 0x282040
-
-To-do:
-- Implement AOB scans to find offsets automatically
-Like seriously I need to do this in my spare time, I've been saying I would do this for over a year now
 
 Disclaimer:
 
