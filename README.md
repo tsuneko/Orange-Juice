@@ -3,7 +3,7 @@ Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each cur
 
 With the steam inventory upgrade, more currencies are being moved to the steam inventory, which cannot be modified by this program, and thus you will not be able to buy all the cosmetics. I believe that fruitbat factory will eventually move all currencies (apart from stars) to the inventory, which makes this program not as useful for lazy players such as myself.
 
-##No more releases.
+## No more releases.
 
 Static Offsets for 2.2.1:
 - Stars = 0x469440
