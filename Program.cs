@@ -34,13 +34,13 @@ namespace orangejuicemoney
             int bytesRead = 0;
 
             ReadProcessMemory(handle.ToInt32(), address.ToInt32(), buffer, 4, out bytesRead);
-            
+
             if (bytesRead == 4)
             {
                 return BitConverter.ToInt32(buffer, 0);
             }
 
-            return (int) -2147483648; // failed to read memory
+            return (int)-2147483648; // failed to read memory
         }
 
         static bool WriteInt(IntPtr handle, IntPtr address, int value)
@@ -64,7 +64,7 @@ namespace orangejuicemoney
 
             Console.WriteLine("Current Values:");
 
-            foreach(KeyValuePair<string, int> entry in offsets)
+            foreach (KeyValuePair<string, int> entry in offsets)
             {
                 Console.WriteLine("[" + ProcessName + ".exe+" + entry.Value.ToString("X") + "] " + entry.Key + ": " + ReadInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + entry.Value)));
             }
@@ -75,7 +75,8 @@ namespace orangejuicemoney
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Stars"]), 99999);
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Fruits"]), 999);
             WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Halloween Candy"]), 999);
-            WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Christmas Candy"]), 9999);
+            // Depreciated in previous versions
+            //WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Christmas Candy"]), 9999);
             //WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Valentines Event"]), 99999);
         }
 
@@ -83,7 +84,7 @@ namespace orangejuicemoney
         {
 
             string ProcessName = "100orange";
-            string ProcessVersion = "Steam 1.28.5";
+            string ProcessVersion = "Steam 2.2.1";
 
             Console.Title = "999% Orange Juice [" + ProcessVersion + "] ~ Tsuneko";
 
@@ -100,6 +101,7 @@ namespace orangejuicemoney
             Console.Clear();
 
             Console.WriteLine("Open Shop then press any key to read values.");
+            Console.WriteLine("Note that since patch 1.19 some currencies are stored in steam inventory and thus not modifyable.");
             Console.ReadKey();
 
             Console.Clear();
@@ -109,12 +111,9 @@ namespace orangejuicemoney
 
             // Static offsets for 100% Orange Juice Steam 1.28.5 (09/09/18)
             Dictionary<string, int> offsets = new Dictionary<string, int>();
-            offsets["Stars"] = int.Parse("61C8D0", HexNumber);
-            offsets["Fruits"] = int.Parse("61DA18", HexNumber);
-            offsets["Halloween Candy"] = int.Parse("61D7DC", HexNumber);
-            offsets["Christmas Candy"] = int.Parse("61D7E0", HexNumber);
-            // offsets["Valentines Event"] = int.Parse("282040", HexNumber);
-            // Outdated as event is over
+            offsets["Stars"] = int.Parse("469440", HexNumber);
+            offsets["Fruits"] = int.Parse("46A7EC", HexNumber);
+            offsets["Halloween Candy"] = int.Parse("46A540", HexNumber);
 
             Console.Clear();
 
@@ -145,7 +144,7 @@ namespace orangejuicemoney
             while (Process.GetProcessesByName(ProcessName).Length > 0)
             {
                 SetValuesToMax(ProcessHandle, ProcessBase, offsets);
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
             }
         }
     }
