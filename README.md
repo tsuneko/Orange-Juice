@@ -1,4 +1,4 @@
-# Orange-Juice 1.28.5
+# Orange-Juice 2.2.1
 Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store. Version 1.26 added a Valentines Event where you have to collect chocolates, this has been removed from 1.27. Some version (I'm not sure since I didn't keep up to date) removed christmas candies.
 
 With the steam inventory upgrade, more currencies are being moved to the steam inventory, which cannot be modified by this program, and thus you will not be able to buy all the cosmetics. I believe that fruitbat factory will eventually move all currencies (apart from stars) to the inventory, which makes this program not as useful for lazy players such as myself.
