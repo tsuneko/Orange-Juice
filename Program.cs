@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,41 +7,115 @@ using System.Diagnostics;
 using System.Threading;
 using System.Runtime.InteropServices;
 
-using static System.Globalization.NumberStyles;
-
-namespace orangejuicemoney
+namespace _999percent
 {
     class Program
     {
-
-        // C# Source written by /id/tsuneko
-
-        // Use at own risk. I'm not responsible for anything.
-
-        // This source does not have any error checking, it has just been written for copy and paste material by leechers.
-
         [DllImport("kernel32.dll")]
         public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
         [DllImport("kernel32.dll")]
-        public static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] buffer, int size, out int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] buffer, int size, out int lpNumberOfBytesRead);
 
         [DllImport("kernel32.dll")]
         public static extern bool WriteProcessMemory(int hProcess, int lpBaseAddress, byte[] buffer, int size, out int lpNumberOfBytesWritten);
 
-        static int ReadInt(IntPtr handle, IntPtr address)
+        [DllImport("kernel32.dll")]
+        static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MEMORY_BASIC_INFORMATION lpBuffer, uint dwLength);
+
+        internal struct MEMORY_BASIC_INFORMATION
+        {
+            public static UInt32 Size = (UInt32)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION));
+
+            public IntPtr BaseAddress;
+            public IntPtr AllocationBase;
+            public uint AllocationProtect;
+            public IntPtr RegionSize;
+            public uint State;
+            public uint Protect;
+            public uint Type;
+        }
+
+        class OJProcess
+        {
+            public string Name;
+            public string Version;
+            public string Date;
+            public IntPtr Handle;
+            public IntPtr Base;
+        }
+
+        class Signature
+        {
+            public byte[] Bytes;
+            public string Mask;
+            public int Length;
+            public int ByteOffset;
+            public int MaxValue;
+            public IntPtr PointerAddress;
+            public IntPtr Address;
+        }
+
+        static bool TokenizeSignature(string s, out Signature signature)
+        {
+            signature = new Signature();
+
+            string[] tokens = s.Split(',');
+
+            int NumberChars = tokens[0].Length;
+            signature.Bytes = new byte[NumberChars / 2];
+            for (int i = 0; i < NumberChars; i += 2)
+            {
+                signature.Bytes[i / 2] = Convert.ToByte(tokens[0].Substring(i, 2), 16);
+            }
+
+            signature.Mask = tokens[1];
+
+            if (signature.Bytes.Length != signature.Mask.Length)
+            {
+                return false;
+            }
+
+            signature.Length = signature.Bytes.Length;
+
+            signature.ByteOffset = 0;
+            try
+            {
+                signature.ByteOffset = Convert.ToInt32(tokens[2]);
+            }
+            catch
+            {
+                return false;
+            }
+
+            signature.MaxValue = 0;
+            try
+            {
+                signature.MaxValue = Convert.ToInt32(tokens[3]);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        static bool ReadInt(IntPtr handle, IntPtr address, out int n)
         {
             byte[] buffer = new byte[4];
             int bytesRead = 0;
 
-            ReadProcessMemory(handle.ToInt32(), address.ToInt32(), buffer, 4, out bytesRead);
+            ReadProcessMemory(handle, address, buffer, 4, out bytesRead);
 
             if (bytesRead == 4)
             {
-                return BitConverter.ToInt32(buffer, 0);
+                n = BitConverter.ToInt32(buffer, 0);
+                return true;
             }
 
-            return (int)-2147483648; // failed to read memory
+            n = 0;
+            return false;
         }
 
         static bool WriteInt(IntPtr handle, IntPtr address, int value)
@@ -55,97 +130,218 @@ namespace orangejuicemoney
                 return true;
             }
 
-            return false; // failed to write memory
+            return false;
         }
 
-        static void PrintCurrentValues(string ProcessName, IntPtr ProcessHandle, IntPtr ProcessBase, Dictionary<string, int> offsets)
+        static bool SignatureScan(OJProcess process, Signature signature)
         {
-            // Print Current Values
+            bool canFind = true;
+            MEMORY_BASIC_INFORMATION info;
 
-            Console.WriteLine("Current Values:");
+            int MEM_COMMIT = 0x1000;
+            int MEM_MAPPED = 0x40000;
+            int MEM_PRIVATE = 0x20000;
+            int MEM_IMAGE = 0x1000000;
 
-            foreach (KeyValuePair<string, int> entry in offsets)
+            for (long currentAddress = (long)process.Base; VirtualQueryEx(process.Handle, (IntPtr)currentAddress, out info, (uint)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION))) == 28; currentAddress += (long)info.RegionSize)
             {
-                Console.WriteLine("[" + ProcessName + ".exe+" + entry.Value.ToString("X") + "] " + entry.Key + ": " + ReadInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + entry.Value)));
+                if (info.State == MEM_COMMIT && (info.Type == MEM_MAPPED || info.Type == MEM_PRIVATE || info.Type == MEM_IMAGE))
+                {
+                    int bytesRead = 0;
+                    byte[] dump = new byte[(int)info.RegionSize];
+                    ReadProcessMemory(process.Handle, (IntPtr)currentAddress, dump, (int)info.RegionSize, out bytesRead);
+                    Array.Resize(ref dump, bytesRead);
+
+                    if (bytesRead > 0)
+                    {
+                        int currentOffset = 0;
+                        while (currentOffset < bytesRead - signature.Length)
+                        {
+                            canFind = true;
+                            for (int i = 0; i < signature.Length - 1; i++)
+                            {
+                                if (signature.Mask[i] == 'x' && dump[currentOffset + i] != signature.Bytes[i])
+                                {
+                                    canFind = false;
+                                    break;
+                                }
+                            }
+                            
+                            if (canFind)
+                            {
+                                signature.PointerAddress = (IntPtr)currentAddress + currentOffset + signature.ByteOffset;
+                                int offset;
+                                if (ReadInt(process.Handle, signature.PointerAddress, out offset))
+                                {
+                                    signature.Address = (IntPtr)offset;
+                                    return true;
+                                }
+                                return false;
+                            }
+                            currentOffset++;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        static void PrintCurrentValues(OJProcess process, Dictionary<string, Signature> signatures)
+        {
+            foreach (string key in signatures.Keys)
+            {
+                int value;
+                ReadInt(process.Handle, signatures[key].Address, out value);
+                Console.WriteLine(key + ": " + value.ToString());
             }
         }
 
-        static void SetValuesToMax(IntPtr ProcessHandle, IntPtr ProcessBase, Dictionary<string, int> offsets)
+        static void SetValuesToMax(OJProcess process, Dictionary<string, Signature> signatures)
         {
-            WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Stars"]), 99999);
-            WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Fruits"]), 999);
-            WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Halloween Candy"]), 999);
-            // Depreciated in previous versions
-            //WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Christmas Candy"]), 9999);
-            //WriteInt(ProcessHandle, (IntPtr)(ProcessBase.ToInt32() + offsets["Valentines Event"]), 99999);
+            foreach (string key in signatures.Keys)
+            {
+                WriteInt(process.Handle, signatures[key].Address, signatures[key].MaxValue);
+            }
+        }
+
+        static void Error(string log)
+        {
+            Console.WriteLine("Error: " + log);
+            Console.ReadKey();
+            Environment.Exit(1);
         }
 
         static void Main(string[] args)
         {
+            Console.Title = "999% Orange Juice ~ Tsuneko";
 
-            string ProcessName = "100orange";
-            string ProcessVersion = "Steam 2.2.1";
+            if (!File.Exists("conf.ini")) {
+                Error("conf.ini file does not exist!");
+            }
 
-            Console.Title = "999% Orange Juice [" + ProcessVersion + "] ~ Tsuneko";
+            OJProcess OrangeJuice = new OJProcess();
+            OrangeJuice.Name = "";
+            OrangeJuice.Version = "Unknown Version";
+            OrangeJuice.Date = "";
 
-            Console.WriteLine("Waiting for process: " + ProcessName);
+            Dictionary<string, Signature> signatures = new Dictionary<string, Signature>();
 
-            Process[] processes = Process.GetProcessesByName(ProcessName);
+            string[] lines = File.ReadAllLines("conf.ini");
+            string currentSection = "process";
+            foreach (string l in lines)
+            {
+                string line = string.Join("", l.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries)); // remove all whitespace
+                if (line.Length > 2)
+                {
+                    if (line[0] == ';')
+                    {
+                        continue;
+                    }
+                    if (line[0] == '[' && line[line.Length - 1] == ']')
+                    {
+                        currentSection = line.Substring(1, line.Length - 2);
+                    }
+                    else if (line.Contains('=') && line.IndexOf('=') > 0 && line.IndexOf('=') < line.Length-1)
+                    {
+                        string key = line.Substring(0, line.IndexOf('='));
+                        string value = line.Substring(line.IndexOf('=') + 1, line.Length - line.IndexOf('=') - 1);
+                        if (currentSection == "process")
+                        {
+                            switch (key)
+                            {
+                                case "name":
+                                    OrangeJuice.Name = value;
+                                    break;
+                                case "version":
+                                    OrangeJuice.Version = value;
+                                    break;
+                                case "date":
+                                    OrangeJuice.Date = value;
+                                    break;
+                            }
+                        }
+                        else if (currentSection == "signatures")
+                        {
+                            Signature signature;
+                            if (TokenizeSignature(value, out signature))
+                            {
+                                signatures[key] = signature;
+                            }
+                        }
+                    }
+                }
+            }
 
+            // Check process configuration values
+            if (OrangeJuice.Name == "")
+            {
+                Error("conf.ini does not contain process name");
+            }
+            Console.Title = "999% Orange Juice [" + OrangeJuice.Version + "] ~ Tsuneko " + OrangeJuice.Date;
+
+            // Wait for process
+            Console.WriteLine("Waiting for process: " + OrangeJuice.Name + ".exe");
+
+            Process[] processes = Process.GetProcessesByName(OrangeJuice.Name);
             while (processes.Length == 0) // process does not exist
             {
                 Thread.Sleep(200);
-                processes = Process.GetProcessesByName(ProcessName);
+                processes = Process.GetProcessesByName(OrangeJuice.Name);
             }
-
             Console.Clear();
 
-            Console.WriteLine("Open Shop then press any key to read values.");
-            Console.WriteLine("Note that since patch 1.19 some currencies are stored in steam inventory and thus not modifyable.");
-            Console.ReadKey();
+            // Get handle to process
+            int PROCESS_QUERY_INFORMATION = 0x0400;
+            int PROCESS_VM_OPERATION = 0x0008;
+            int PROCESS_VM_READ = 0x0010;
+            int PROCESS_VM_WRITE = 0x0020;
+            OrangeJuice.Handle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE, false, processes[0].Id);
+            OrangeJuice.Base = (IntPtr)processes[0].MainModule.BaseAddress.ToInt32();
 
-            Console.Clear();
-
-            IntPtr ProcessHandle = (IntPtr)OpenProcess(0x0008 | 0x0010 | 0x0020, false, processes[0].Id);
-            IntPtr ProcessBase = (IntPtr)processes[0].MainModule.BaseAddress.ToInt32();
-
-            // Static offsets for 100% Orange Juice Steam 1.28.5 (09/09/18)
-            Dictionary<string, int> offsets = new Dictionary<string, int>();
-            offsets["Stars"] = int.Parse("469440", HexNumber);
-            offsets["Fruits"] = int.Parse("46A7EC", HexNumber);
-            offsets["Halloween Candy"] = int.Parse("46A540", HexNumber);
-
-            Console.Clear();
-
-            PrintCurrentValues(ProcessName, ProcessHandle, ProcessBase, offsets);
-
-            Console.WriteLine("\nIf these values are correct, press [Enter] to get rich");
-
-            ConsoleKey key = Console.ReadKey().Key;
-            while (key != ConsoleKey.Enter)
+            Console.WriteLine("Signatures:");
+            foreach (string key in signatures.Keys)
             {
-                // Wait for Enter to be pressed, also quit if Escape is pressed
+                if (SignatureScan(OrangeJuice, signatures[key]))
+                {
+                    Console.WriteLine(key + " - [" + OrangeJuice.Name + ".exe]+" + ((long)signatures[key].Address - (long)OrangeJuice.Base).ToString("X"));
+                } else
+                {
+                    signatures.Remove(key);
+                }
+            }
+            
+            if (signatures.Keys.Count == 0)
+            {
+                Error("No valid signatures");
+            }
+            Console.WriteLine();
 
-                if (key == ConsoleKey.Escape)
+            PrintCurrentValues(OrangeJuice, signatures);
+            Console.WriteLine("\nIf these values are correct, press [Enter] to steal many stars");
+            ConsoleKey k = Console.ReadKey().Key;
+            while (k != ConsoleKey.Enter)
+            {
+                if (k == ConsoleKey.Escape)
                 {
                     Environment.Exit(0);
                 }
 
-                key = Console.ReadKey().Key;
+                k = Console.ReadKey().Key;
             }
-
             Console.Clear();
+            Console.WriteLine("Freezing Values. Press Ctrl+C to quit.\n");
 
-            SetValuesToMax(ProcessHandle, ProcessBase, offsets);
-            PrintCurrentValues(ProcessName, ProcessHandle, ProcessBase, offsets);
+            SetValuesToMax(OrangeJuice, signatures);
+            PrintCurrentValues(OrangeJuice, signatures);
 
-            Console.WriteLine("\nFreezing Values. Press Ctrl+C to quit.");
-
-            while (Process.GetProcessesByName(ProcessName).Length > 0)
+            while (Process.GetProcessesByName(OrangeJuice.Name).Length > 0)
             {
-                SetValuesToMax(ProcessHandle, ProcessBase, offsets);
+                SetValuesToMax(OrangeJuice, signatures);
                 Thread.Sleep(1000);
             }
+
+            Environment.Exit(0);
         }
     }
 }
