@@ -5,6 +5,7 @@ Note that this program will only be able to modify the currency values stored lo
 - Stars
 - Oranges
 - Halloween Candy
+
 (Depreciated: Christmas Candy, Valentines Chocolates)
 
 With the steam inventory upgrade, more currencies are being moved to the steam inventory, which cannot be modified by this program, and thus you will not be able to buy all the cosmetics. I believe that fruitbat factory will eventually move all currencies (apart from stars) to the inventory, which will eventually render this program useless.
