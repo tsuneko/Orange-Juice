@@ -11,7 +11,7 @@ Note that this program will only be able to modify the currency values stored lo
 With the steam inventory upgrade, more currencies are being moved to the steam inventory, which cannot be modified by this program, and thus you will not be able to buy all the cosmetics. I believe that fruitbat factory will eventually move all currencies (apart from stars) to the inventory, which will eventually render this cheat useless.
 
 ### [Latest Release (24/07/19)](https://github.com/tsuneko/Orange-Juice/releases/download/2.2.1/999percent.zip)
-### Last verified working 14/09/19 ~ 100% Orange Juice 2.4
+### Last verified working 01/12/19 ~ 100% Orange Juice 2.6.1
 
 To find the currencies, 999orange utilises signature scanning to find where the currencies are stored in memory. As 999orange has been updated to use signature scanning rather than static offsets, if the game is updated then the offsets will not become outdated as easily.
 
