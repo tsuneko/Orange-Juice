@@ -1,4 +1,4 @@
-# 999orange
+# 999% Orange Juice
 Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store. 
 
 Note that this program will only be able to modify the following currency values stored locally:
