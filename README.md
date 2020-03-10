@@ -21,6 +21,8 @@ Signatures are listed on the conf.ini file and are in the form `name=array,mask,
 - Oranges: `oranges=81FF000000007CCAA1000000005335,xx????xxx????xx,9,999`
 - Halloween Candy: `halloween=E8000000000FB6C0330500000000536A,x????xx?xx????xx,10,999`
 
+A tutorial on finding signatures can be found [here](https://www.unknowncheats.me/forum/programming-for-beginners/171994-understanding-pattern-scanning-concept.html).
+
 ### Disclaimer:
 
 100% Orange Juice is a VAC enabled game. I'm fairly sure VAC only checks process signatures when you are online in a match, so only use this program when you have the shop open. If you're scared of getting VAC banned, use cheat engine instead. If you're too scared to use cheat engine, I suggest you go earn your money legitimately.  Use entirely at own risk. I am not responsible for anything which can happen in regards to usage of my sources and/or releases. **Do not use the program while in an online match.**
