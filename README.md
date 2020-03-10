@@ -13,7 +13,7 @@ With the steam inventory upgrade, more currencies are being moved to the steam i
 ### [Latest Release (24/07/19)](https://github.com/tsuneko/Orange-Juice/releases/download/2.2.1/999percent.zip)
 ### Last verified working 11/03/20 ~ 100% Orange Juice 2.8.2
 
-To find the currencies, 999orange utilises signature scanning to find where the currencies are stored in memory. As 999orange has been updated to use signature scanning rather than static offsets, if the game is updated then the offsets will not become outdated as easily.
+To find the currencies, 999percent utilises signature scanning to find where the currencies are stored in memory. As 999percent has been updated to use signature scanning rather than static offsets, if the game is updated then the offsets will not become outdated as easily.
 
 ### Latest Signatures:
 Signatures are listed on the conf.ini file and are in the form `name=array,mask,offset,max_value`
