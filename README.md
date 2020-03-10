@@ -1,7 +1,7 @@
 # 999orange
 Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store. 
 
-Note that this program will only be able to modify the currency values stored locally (as of 2.2.1):
+Note that this program will only be able to modify the following currency values stored locally:
 - Stars
 - Oranges
 - Halloween Candy
@@ -23,6 +23,6 @@ Signatures are listed on the conf.ini file and are in the form `name=array,mask,
 
 ### Disclaimer:
 
-100% Orange Juice is a VAC enabled game. I'm fairly sure VAC only checks process signatures when you are online in a match, so only use this program when you have the shop open. If you're scared of getting VAC banned, use cheat engine instead. If you're too scared to use cheat engine, I suggest you go earn your money legitimately.  Use entirely at own risk. I am not responsible for anything which can happen in regards to usage of my sources and/or releases.
+100% Orange Juice is a VAC enabled game. I'm fairly sure VAC only checks process signatures when you are online in a match, so only use this program when you have the shop open. If you're scared of getting VAC banned, use cheat engine instead. If you're too scared to use cheat engine, I suggest you go earn your money legitimately.  Use entirely at own risk. I am not responsible for anything which can happen in regards to usage of my sources and/or releases. **Do not use the program while in an online match.**
 
 As far as I am aware, this cheat will not result in a VAC ban. There are no known cases of VAC bans due to this cheat.
