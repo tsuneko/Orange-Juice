@@ -25,6 +25,12 @@ A tutorial on finding signatures can be found [here](https://www.unknowncheats.m
 
 ### Disclaimer:
 
-100% Orange Juice is a VAC enabled game. I'm fairly sure VAC only checks process signatures when you are online in a match, so only use this program when you have the shop open. If you're scared of getting VAC banned, use cheat engine instead. If you're too scared to use cheat engine, I suggest you go earn your money legitimately.  Use entirely at own risk. I am not responsible for anything which can happen in regards to usage of my sources and/or releases. **Do not use the program while in an online match.**
+100% Orange Juice is a VAC enabled game. According to a dev response on a steam discussion page, there are no VAC servers, since the game doesn't use servers. The game itself is VAC enabled, meaning if you cheat while running it you're likely to get VAC banned.
+You can find the discussion page [here](https://steamcommunity.com/app/282800/discussions/0/1744480966997301464/)
+
+If you're scared of getting VAC banned, use cheat engine instead. If you're too scared to use cheat engine, I suggest you go earn your money legitimately.  
+If you want a super safe version [this applies for cheat engine as well], launch this game and steam in **COMPLETE OFFLINE** mode, which means physically turning your internet off. You should know you're in offline mode because the shop page will say **No Steam Connection**. This should bypass any attempts at VAC.
+
+Use entirely at own risk. I am not responsible for anything which can happen in regards to usage of my sources and/or releases. **Do not use the program while in an online match.**
 
 As far as I am aware, this cheat will not result in a VAC ban as it only modifies currency values. There are no known cases of VAC bans due to this cheat.
