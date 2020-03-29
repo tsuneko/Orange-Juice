@@ -29,7 +29,9 @@ A tutorial on finding signatures can be found [here](https://www.unknowncheats.m
 
 **Users have been banned using cheat engine in both singeplayer and multiplayer matches. Do not attempt to play a match with this cheat open. For added safety, launch the game and use the cheat while disconnected from the internet.**
 
-Fruitbat Factory has [mentioned](https://steamcommunity.com/app/282800/discussions/0/1744480966997301464/) that you may be banned even without being in a match, *“There are no VAC servers, since the game doesn't use servers. The game itself is VAC enabled, meaning if you cheat while running it you're likely to get VAC banned.”*, however I believe this statement is misleading as it conflicts with the design of VAC outlined [here](https://support.steampowered.com/kb_article.php?s=087dccfcc85be81977b078f1e4025bde&ref=7849-RADZ-6869), *"You will not be banned by the VAC system unless you log in to a VAC-secure server with a cheat installed on your computer."*. VAC-secure servers likely being both singleplayer and multiplayer matches.
+Fruitbat Factory has [mentioned](https://steamcommunity.com/app/282800/discussions/0/1744480966997301464/) that you may be banned even without being in a match, however I believe their statement to be misleading as it conflicts with the design of VAC outlined [here](https://support.steampowered.com/kb_article.php?s=087dccfcc85be81977b078f1e4025bde&ref=7849-RADZ-6869).
+
+Users who have been VAC banned on 100% Orange Juice have mentioned cheating in singleplayer and multiplayer matches. 999percent only modifies values stored locally, and so it is highly unlikely that its signature will be manually added to VAC's list of known cheats.
 
 Use entirely at own risk. I am not responsible for anything which can happen in regards to usage of my sources and/or releases.
 
