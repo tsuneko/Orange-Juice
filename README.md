@@ -31,7 +31,8 @@ Fruitbat Factory has [mentioned](https://steamcommunity.com/app/282800/discussio
 
 Users who have been VAC banned on 100% Orange Juice have mentioned cheating in singleplayer and multiplayer matches.
 
-**Do not attempt to play a match with this cheat open.**
+### Do not attempt to play a match (both singleplayer and multiplayer) with this cheat open.
+
 For added safety, launch the game and use the cheat while disconnected from the internet.
 
 999percent only modifies currency values stored locally, and so it is highly unlikely that its signature will be manually added to VAC's list of known cheats.
