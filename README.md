@@ -25,11 +25,11 @@ A tutorial on finding signatures can be found [here](https://www.unknowncheats.m
 
 ### Disclaimer:
 
-100% Orange Juice is a VAC enabled game. VAC requires an active internet connection to function, and so it is usually safe to cheat if disconnected. **Users have been banned using cheat engine in both singeplayer and multiplayer matches. Do not attempt to play a match with this cheat open.**
+100% Orange Juice is a VAC enabled game. VAC requires an active internet connection to function, and so it is usually safe to cheat if the game is launched without an internet connection.
 
-Fruitbat Factory has [mentioned](https://steamcommunity.com/app/282800/discussions/0/1744480966997301464/) that 100% Orange Juice “does not use VAC servers”, however that statement conflicts with the design of VAC, and so I believe that it is a misleading statement. Read more about VAC [here](https://support.steampowered.com/kb_article.php?s=087dccfcc85be81977b078f1e4025bde&ref=7849-RADZ-6869).
+**Users have been banned using cheat engine in both singeplayer and multiplayer matches. Do not attempt to play a match with this cheat open.**
 
-
+Fruitbat Factory has [mentioned](https://steamcommunity.com/app/282800/discussions/0/1744480966997301464/) that you may be banned even without being in a match, “There are no VAC servers, since the game doesn't use servers. The game itself is VAC enabled, meaning if you cheat while running it you're likely to get VAC banned.”, however I believe this statement is misleading as it conflicts with the design of VAC outlined [here](https://support.steampowered.com/kb_article.php?s=087dccfcc85be81977b078f1e4025bde&ref=7849-RADZ-6869).
 
 Use entirely at own risk. I am not responsible for anything which can happen in regards to usage of my sources and/or releases.
 
