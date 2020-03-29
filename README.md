@@ -29,9 +29,7 @@ A tutorial on finding signatures can be found [here](https://www.unknowncheats.m
 
 Fruitbat Factory has [mentioned](https://steamcommunity.com/app/282800/discussions/0/1744480966997301464/) that you may be banned even without being in a match, however I believe their statement to be misleading as it conflicts with the design of VAC outlined [here](https://support.steampowered.com/kb_article.php?s=087dccfcc85be81977b078f1e4025bde&ref=7849-RADZ-6869).
 
-Users who have been VAC banned on 100% Orange Juice have mentioned cheating in singleplayer and multiplayer matches.
-
-### Do not attempt to play a match (both singleplayer and multiplayer) with this cheat open.
+### Do not attempt to play a match (singleplayer or multiplayer) with this cheat open.
 
 For added safety, launch the game and use the cheat while disconnected from the internet.
 
