@@ -23,6 +23,9 @@ Signatures are listed on the conf.ini file and are in the form `name=array,mask,
 
 A tutorial on finding signatures can be found [here](https://www.unknowncheats.me/forum/programming-for-beginners/171994-understanding-pattern-scanning-concept.html).
 
+Old Signatures
+- ~ 2.9.4 `stars=FF75C0E800000000FF35000000008BB3,xxxx????xx????xx,10,99999`
+
 ### Disclaimer:
 
 100% Orange Juice is a VAC enabled game. VAC requires an active internet connection to function, and so it is usually safe to cheat if the game is launched without an internet connection.
