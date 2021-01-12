@@ -10,21 +10,18 @@ Note that this program will only be able to modify the following currency values
 
 With the steam inventory upgrade, more currencies are being moved to the steam inventory, which cannot be modified by this program, and thus you will not be able to buy all the cosmetics. I believe that fruitbat factory will eventually move all currencies (apart from stars) to the inventory, which will eventually render this cheat useless.
 
-### [Latest Release (03/06/20)](https://github.com/tsuneko/Orange-Juice/releases/download/2.9.5/999percent.zip)
-### Last verified working 03/06/20 ~ 100% Orange Juice 2.9.5
+### [Latest Release (13/01/21)](https://github.com/tsuneko/Orange-Juice/releases/download/3.3/999percent.zip)
+### Last verified working 13/01/21 ~ 100% Orange Juice 3.3
 
 To find the currencies, 999percent utilises signature scanning to find where the currencies are stored in memory. As 999percent has been updated to use signature scanning rather than static offsets, if the game is updated then the offsets will not become outdated as easily.
 
 ### Latest Signatures:
 Signatures are listed on the conf.ini file and are in the form `name=array,mask,offset,max_value`
 - Stars: `stars=2B46080F48C1A3000000005E5D,xxxxxxx????xx,7,99999`
-- Oranges: `oranges=81FF000000007CCAA1000000005335,xx????xxx????xx,9,999`
-- Halloween Candy: `halloween=E8000000000FB6C0330500000000536A,x????xx?xx????xx,10,999`
+- Oranges: `oranges=5F0F49C6890D000000005E5D,xxxxxx????xx,6,999`
+- Halloween Candy: `halloween=EB0233C0A3000000008985,xxxxx????xx,5,999`
 
 A tutorial on finding signatures can be found [here](https://www.unknowncheats.me/forum/programming-for-beginners/171994-understanding-pattern-scanning-concept.html).
-
-Old Signatures
-- ~ 2.9.4 `stars=FF75C0E800000000FF35000000008BB3,xxxx????xx????xx,10,99999`
 
 ### Disclaimer:
 
