@@ -6,6 +6,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Threading;
 using System.Runtime.InteropServices;
+using static System.Globalization.NumberStyles;
 
 namespace _999percent
 {
@@ -56,6 +57,12 @@ namespace _999percent
             public IntPtr Address;
         }
 
+        class StaticOffset
+        {
+            public int Offset;
+            public int MaxValue;
+        }
+
         static bool TokenizeSignature(string s, out Signature signature)
         {
             signature = new Signature();
@@ -92,6 +99,35 @@ namespace _999percent
             try
             {
                 signature.MaxValue = Convert.ToInt32(tokens[3]);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        static bool TokenizeStaticOffset(string s, out StaticOffset staticoffset)
+        {
+            staticoffset = new StaticOffset();
+
+            string[] tokens = s.Split(',');
+
+            staticoffset.Offset = 0;
+            try
+            {
+                staticoffset.Offset = int.Parse(tokens[0], HexNumber);
+            }
+            catch
+            {
+                return false;
+            }
+
+            staticoffset.MaxValue = 0;
+            try
+            {
+                staticoffset.MaxValue = Convert.ToInt32(tokens[1]);
             }
             catch
             {
@@ -166,7 +202,7 @@ namespace _999percent
                                     break;
                                 }
                             }
-                            
+
                             if (canFind)
                             {
                                 signature.PointerAddress = (IntPtr)currentAddress + currentOffset + signature.ByteOffset;
@@ -187,7 +223,7 @@ namespace _999percent
             return false;
         }
 
-        static void PrintCurrentValues(OJProcess process, Dictionary<string, Signature> signatures)
+        static void PrintCurrentValues(OJProcess process, Dictionary<string, Signature> signatures, Dictionary<string, StaticOffset> staticoffsets, int processbase)
         {
             foreach (string key in signatures.Keys)
             {
@@ -195,13 +231,25 @@ namespace _999percent
                 ReadInt(process.Handle, signatures[key].Address, out value);
                 Console.WriteLine(key + ": " + value.ToString());
             }
+
+            foreach (string key in staticoffsets.Keys)
+            {
+                int value;
+                ReadInt(process.Handle, (IntPtr)(staticoffsets[key].Offset + processbase), out value);
+                Console.WriteLine(key + ": " + value.ToString());
+            }
         }
 
-        static void SetValuesToMax(OJProcess process, Dictionary<string, Signature> signatures)
+        static void SetValuesToMax(OJProcess process, Dictionary<string, Signature> signatures, Dictionary<string, StaticOffset> staticoffsets, int processbase)
         {
             foreach (string key in signatures.Keys)
             {
                 WriteInt(process.Handle, signatures[key].Address, signatures[key].MaxValue);
+            }
+
+            foreach (string key in staticoffsets.Keys)
+            {
+                WriteInt(process.Handle, (IntPtr)(staticoffsets[key].Offset + processbase), staticoffsets[key].MaxValue);
             }
         }
 
@@ -216,7 +264,8 @@ namespace _999percent
         {
             Console.Title = "999% Orange Juice ~ Tsuneko";
 
-            if (!File.Exists("conf.ini")) {
+            if (!File.Exists("conf.ini"))
+            {
                 Error("conf.ini file does not exist!");
             }
 
@@ -226,6 +275,7 @@ namespace _999percent
             OrangeJuice.Date = "";
 
             Dictionary<string, Signature> signatures = new Dictionary<string, Signature>();
+            Dictionary<string, StaticOffset> staticoffsets = new Dictionary<string, StaticOffset>();
 
             string[] lines = File.ReadAllLines("conf.ini");
             string currentSection = "process";
@@ -242,7 +292,7 @@ namespace _999percent
                     {
                         currentSection = line.Substring(1, line.Length - 2);
                     }
-                    else if (line.Contains('=') && line.IndexOf('=') > 0 && line.IndexOf('=') < line.Length-1)
+                    else if (line.Contains('=') && line.IndexOf('=') > 0 && line.IndexOf('=') < line.Length - 1)
                     {
                         string key = line.Substring(0, line.IndexOf('='));
                         string value = line.Substring(line.IndexOf('=') + 1, line.Length - line.IndexOf('=') - 1);
@@ -267,6 +317,15 @@ namespace _999percent
                             if (TokenizeSignature(value, out signature))
                             {
                                 signatures[key] = signature;
+                            }
+                        }
+
+                        else if (currentSection == "staticoffsets")
+                        {
+                            StaticOffset staticoffset;
+                            if (TokenizeStaticOffset(value, out staticoffset))
+                            {
+                                staticoffsets[key] = staticoffset;
                             }
                         }
                     }
@@ -305,19 +364,30 @@ namespace _999percent
                 if (SignatureScan(OrangeJuice, signatures[key]))
                 {
                     Console.WriteLine(key + " - [" + OrangeJuice.Name + ".exe]+" + ((long)signatures[key].Address - (long)OrangeJuice.Base).ToString("X"));
-                } else
+                }
+                else
                 {
                     signatures.Remove(key);
                 }
             }
-            
+
             if (signatures.Keys.Count == 0)
             {
                 Error("No valid signatures");
             }
             Console.WriteLine();
 
-            PrintCurrentValues(OrangeJuice, signatures);
+            if (staticoffsets.Keys.Count > 0)
+            {
+                Console.WriteLine("Static Offsets:");
+                foreach (string key in staticoffsets.Keys)
+                {
+                    Console.WriteLine(key + " - [" + OrangeJuice.Name + ".exe]+" + (staticoffsets[key].Offset).ToString("X"));
+                }
+                Console.WriteLine();
+            }
+
+            PrintCurrentValues(OrangeJuice, signatures, staticoffsets, OrangeJuice.Base.ToInt32());
             Console.WriteLine("\nIf these values are correct, press [Enter] to steal many stars");
             ConsoleKey k = Console.ReadKey().Key;
             while (k != ConsoleKey.Enter)
@@ -332,12 +402,12 @@ namespace _999percent
             Console.Clear();
             Console.WriteLine("Freezing Values. Press Ctrl+C to quit.\n");
 
-            SetValuesToMax(OrangeJuice, signatures);
-            PrintCurrentValues(OrangeJuice, signatures);
+            SetValuesToMax(OrangeJuice, signatures, staticoffsets, OrangeJuice.Base.ToInt32());
+            PrintCurrentValues(OrangeJuice, signatures, staticoffsets, OrangeJuice.Base.ToInt32());
 
             while (Process.GetProcessesByName(OrangeJuice.Name).Length > 0)
             {
-                SetValuesToMax(OrangeJuice, signatures);
+                SetValuesToMax(OrangeJuice, signatures, staticoffsets, OrangeJuice.Base.ToInt32());
                 Thread.Sleep(1000);
             }
 
