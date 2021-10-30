@@ -1,3 +1,7 @@
+## 999 Orange Juice is currently not working. Please use Cheat Engine to add your money.
+
+I currently do not have the time to maintain this application. I will have a look at writing an inventory editor in the future, to bypass the current issue of having newer currencies stored on the steam inventory.
+
 # 999% Orange Juice
 Simple Currency Cheat for 100% Orange Juice [Steam]. All it does is set each currency type to their maximum values so you can buy whatever you want from the store. 
 
@@ -11,7 +15,6 @@ Note that this program will only be able to modify the following currency values
 With the steam inventory upgrade, more currencies are being moved to the steam inventory, which cannot be modified by this program, and thus you will not be able to buy all the cosmetics. I believe that fruitbat factory will eventually move all currencies (apart from stars) to the inventory, which will eventually render this cheat useless.
 
 ### [Latest Release (03/07/21)](https://github.com/tsuneko/Orange-Juice/archive/refs/tags/3.6.1+.zip)
-### 999 Orange Juice is currently not working. Please use Cheat Engine to add your money.
 
 To find the currencies, 999percent utilises signature scanning to find where the currencies are stored in memory. As 999percent has been updated to use signature scanning rather than static offsets, if the game is updated then the offsets will not become outdated as easily.
 
